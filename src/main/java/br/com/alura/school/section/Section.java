@@ -19,15 +19,12 @@ public class Section {
     private Long id;
 
     @NotBlank
-//    @ManyToOne
     private String code;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
-//    @NotBlank
-//    private String code;
     @Size(min = 5)
     @NotBlank
     private String title;

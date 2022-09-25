@@ -18,9 +18,9 @@ public class VideoController {
     }
 
     @PostMapping("/courses/{courseCode}/sections/{sectionCode}")
-    ResponseEntity<Void> newVideo(@RequestBody @Valid NewVideoRequest newVideoRequest, @PathVariable String courseCode, String sectionCode) {
+    ResponseEntity<Void> newVideo(@RequestBody @Valid NewVideoRequest newVideoRequest, @PathVariable String courseCode, @PathVariable String sectionCode) {
         videoService.save(newVideoRequest.toEntity(), courseCode, sectionCode);
-        URI location = URI.create(format("/courses/{courseCode}/sections/{sectionCode}"));
+        URI location = URI.create(format("/courses/%s/sections/%s", courseCode, sectionCode));
         return ResponseEntity.created(location).build();
     }
 }

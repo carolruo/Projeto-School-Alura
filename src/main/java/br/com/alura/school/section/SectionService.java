@@ -13,7 +13,6 @@ public class SectionService {
     private final SectionRepository sectionRepository;
     private final CourseService courseService;
 
-
     public SectionService(SectionRepository sectionRepository, CourseService courseService) {
         this.sectionRepository = sectionRepository;
         this.courseService = courseService;

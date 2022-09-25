@@ -22,13 +22,12 @@ public class VideoService {
         this.sectionService = sectionService;
     }
 
-    public void save(Video toEntity, String courseCode, String sectionCode) {
+    public void save(Video video, String courseCode, String sectionCode) {
         Course course = courseService.findByCode(courseCode);
         Section section = sectionService.findByCode(sectionCode);
 
-        videoRepository.save(toEntity);
-        toEntity.setSection(section);
-        section.addVideo(toEntity);
-
+        video.setSection(section);
+        section.addVideo(video);
+        videoRepository.save(video);
     }
 }
