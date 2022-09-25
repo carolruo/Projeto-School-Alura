@@ -2,6 +2,7 @@ package br.com.alura.school.video;
 
 import br.com.alura.school.course.Course;
 import br.com.alura.school.course.CourseService;
+import br.com.alura.school.exceptions.ObjectNotFoundException;
 import br.com.alura.school.section.Section;
 import br.com.alura.school.section.SectionService;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,16 @@ public class VideoService {
         Course course = courseService.findByCode(courseCode);
         Section section = sectionService.findByCode(sectionCode);
 
+        isDuplicated(video, section);
         video.setSection(section);
         section.addVideo(video);
         videoRepository.save(video);
+    }
+
+    private void isDuplicated(Video video, Section section) {
+        boolean isDuplicatedVideo = section.getVideos().stream().anyMatch(video1 -> video1.equals(video));
+        if (isDuplicatedVideo) {
+            throw new ObjectNotFoundException("objeto duplicado");
+        }
     }
 }

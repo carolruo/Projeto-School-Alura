@@ -30,6 +30,7 @@ public class Course {
     private String name;
 
     private String description;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
     private List<Section> sections = new ArrayList<>();
 
