@@ -1,16 +1,18 @@
 package br.com.alura.school.course;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import br.com.alura.school.section.Section;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-class Course {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -27,6 +29,9 @@ class Course {
     private String name;
 
     private String description;
+
+    @OneToMany(mappedBy = "code", cascade = CascadeType.ALL)
+    private List<Section> sections = new ArrayList<>();
 
     @Deprecated
     protected Course() { }
@@ -49,4 +54,7 @@ class Course {
         return description;
     }
 
+    public void addSection(Section section) {
+        sections.add(section);
+    }
 }
