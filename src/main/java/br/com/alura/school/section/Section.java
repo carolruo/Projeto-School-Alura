@@ -1,10 +1,12 @@
 package br.com.alura.school.section;
 
 import br.com.alura.school.course.Course;
+import br.com.alura.school.video.Video;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,16 +20,31 @@ public class Section {
 
     @NotBlank
 //    @ManyToOne
-    @JoinColumn(name = "course_id")
     private String code;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
 //    @NotBlank
 //    private String code;
     @Size(min = 5)
     @NotBlank
     private String title;
+
     @NotBlank
     private String authorUsername;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "section")
+    private List<Video> videos = new ArrayList<>();
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
 
     @Deprecated
     protected Section() {
@@ -51,4 +68,15 @@ public class Section {
         return authorUsername;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public void addVideo(Video newVideo) {
+        this.videos.add(newVideo);
+    }
 }

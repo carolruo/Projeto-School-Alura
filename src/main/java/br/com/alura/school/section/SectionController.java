@@ -1,5 +1,6 @@
 package br.com.alura.school.section;
 
+import br.com.alura.school.video.Video;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,4 +24,5 @@ public class SectionController {
         URI location = URI.create(format("/courses/%s", newSectionRequest.getCode()));
         return ResponseEntity.created(location).build();
     }
+
 }

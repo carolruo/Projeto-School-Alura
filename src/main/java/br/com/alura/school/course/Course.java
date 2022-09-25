@@ -1,6 +1,7 @@
 package br.com.alura.school.course;
 
 import br.com.alura.school.section.Section;
+import br.com.alura.school.video.Video;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,8 +30,7 @@ public class Course {
     private String name;
 
     private String description;
-
-    @OneToMany(mappedBy = "code", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
     private List<Section> sections = new ArrayList<>();
 
     @Deprecated
