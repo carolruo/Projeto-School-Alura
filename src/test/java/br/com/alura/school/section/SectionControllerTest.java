@@ -75,17 +75,24 @@ public class SectionControllerTest {
         videoService.save(video3, "spring-2", "spring-security");
 
         mockMvc.perform(get("/sectionByVideosReport")
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.length()", is(2)))
-                .andExpect(jsonPath("$[0].courseName", is("Spring Basics")))
-                .andExpect(jsonPath("$[0].sectionTitle", is("Initialize")))
-                .andExpect(jsonPath("$[0].authorName", is("Alexa")))
-                .andExpect(jsonPath("$[0].totalVideos", is(2)))
-                .andExpect(jsonPath("$[1].courseName", is("Spring Boot")))
-                .andExpect(jsonPath("$[1].sectionTitle", is("JWT Basic")))
-                .andExpect(jsonPath("$[1].authorName", is("Ale")))
-                .andExpect(jsonPath("$[1].totalVideos", is(1)));
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk())
+                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(jsonPath("$.length()", is(2)))
+                        .andExpect(jsonPath("$[0].courseName", is("Spring Basics")))
+                        .andExpect(jsonPath("$[0].sectionTitle", is("Initialize")))
+                        .andExpect(jsonPath("$[0].authorName", is("Alexa")))
+                        .andExpect(jsonPath("$[0].totalVideos", is(2)))
+                        .andExpect(jsonPath("$[1].courseName", is("Spring Boot")))
+                        .andExpect(jsonPath("$[1].sectionTitle", is("JWT Basic")))
+                        .andExpect(jsonPath("$[1].authorName", is("Ale")))
+                        .andExpect(jsonPath("$[1].totalVideos", is(1)));
+    }
+
+    @Test
+    void should_send_no_content_exception_when_no_enrollments() throws Exception {
+        mockMvc.perform(get("/sectionByVideosReport")
+                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isNoContent());
     }
 }
