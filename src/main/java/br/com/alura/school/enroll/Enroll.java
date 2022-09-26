@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "enrolls")
 public class Enroll {
@@ -50,11 +52,11 @@ public class Enroll {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Enroll enroll = (Enroll) o;
-        return Objects.equals(id, enroll.id);
+        return Objects.equals(data, enroll.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(data);
     }
 }

@@ -6,6 +6,7 @@ import br.com.alura.school.exceptions.DuplicateEnrollmentException;
 import br.com.alura.school.user.User;
 import br.com.alura.school.user.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -23,6 +24,7 @@ public class EnrollService {
         this.userService = userService;
     }
 
+    @Transactional
     public void save(String username, String courseCode) {
         Course course = courseService.findByCode(courseCode);
         User user = userService.findByUsername(username);
