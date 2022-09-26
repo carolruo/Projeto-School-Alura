@@ -19,7 +19,7 @@ public class EnrollController {
     }
 
     @PostMapping("/courses/{courseCode}/enroll")
-    ResponseEntity<Void> newSection(@RequestBody @Valid NewEnrollRequest username, @PathVariable String courseCode) {
+    ResponseEntity<Void> newEnroll(@RequestBody @Valid NewEnrollRequest username, @PathVariable String courseCode) {
         enrollService.save(username.toString(), courseCode);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

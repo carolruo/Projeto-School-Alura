@@ -3,7 +3,6 @@ package br.com.alura.school.course;
 import br.com.alura.school.enroll.Enroll;
 import br.com.alura.school.section.Section;
 import br.com.alura.school.user.User;
-import br.com.alura.school.video.Video;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -32,17 +31,16 @@ public class Course {
 
     private String description;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course")
     private List<Section> sections = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.course")
     private Set<Enroll> enrolls = new HashSet<>();
 
-
     @Deprecated
     protected Course() { }
 
-    Course(String code, String name, String description) {
+    public Course(String code, String name, String description) {
         this.code = code;
         this.name = name;
         this.description = description;

@@ -3,19 +3,14 @@ package br.com.alura.school.enroll;
 import br.com.alura.school.course.Course;
 import br.com.alura.school.user.User;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 @Entity
+@Table(name = "enrolls")
 public class Enroll {
 
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
     @EmbeddedId
     private EnrollPK id = new EnrollPK();
 
