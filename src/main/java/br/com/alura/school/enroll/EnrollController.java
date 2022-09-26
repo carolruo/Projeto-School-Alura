@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static java.lang.String.format;
-
 @RestController
 public class EnrollController {
 
