@@ -21,10 +21,6 @@ public class Enroll {
 
     private LocalDate data;
 
-    public Enroll(String username) {
-        this.id.setUser(username);
-    }
-
     public void setId(EnrollPK id) {
         this.id = id;
     }

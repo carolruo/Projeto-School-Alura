@@ -20,7 +20,13 @@ public class NewEnrollRequest {
         return username;
     }
 
-    User toEntity(String username) {
-        return new Enroll(username);
+//    User toEntity() {
+//        return new Enroll(username);
+//    }
+
+
+    @Override
+    public String toString() {
+        return username;
     }
 }

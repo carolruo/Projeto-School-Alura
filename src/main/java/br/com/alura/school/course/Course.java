@@ -67,6 +67,10 @@ public class Course {
         return enrolls;
     }
 
+    public void addEnroll(Enroll enroll) {
+        this.enrolls.add(enroll);
+    }
+
     String getCode() {
         return code;
     }

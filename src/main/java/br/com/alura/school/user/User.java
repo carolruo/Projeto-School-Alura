@@ -49,6 +49,10 @@ class User {
         return enrolls;
     }
 
+    public void addCourseEnroll(Enroll enroll) {
+        this.enrolls.add(enroll);
+    }
+
     String getUsername() {
         return username;
     }

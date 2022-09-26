@@ -22,6 +22,11 @@ public class EnrollService {
     public void save(String username, String courseCode) {
         Course course = courseService.findByCode(courseCode);
         User user = userService.findByUsername(username);
-//        enrollRepository.save(matricula);
+
+        Enroll enroll = new Enroll(user, course);
+        course.addEnroll(enroll);
+        user.addCourseEnroll(enroll);
+
+        enrollRepository.save(enroll);
     }
 }
