@@ -1,14 +1,20 @@
 package br.com.alura.school.user;
 
+import br.com.alura.school.enroll.Enroll;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static br.com.alura.school.user.UserRole.STUDENT;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
+public
 class User {
 
     @Id
@@ -28,12 +34,19 @@ class User {
     @Enumerated(EnumType.STRING)
     private UserRole role = STUDENT;
 
+    @OneToMany(mappedBy = "id.user")
+    private Set<Enroll> enrolls = new HashSet<>();
+
     @Deprecated
     protected User() {}
 
     User(String username, String email) {
         this.username = username;
         this.email = email;
+    }
+
+    public Set<Enroll> getEnrolls() {
+        return enrolls;
     }
 
     String getUsername() {

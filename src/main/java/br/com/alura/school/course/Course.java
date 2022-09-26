@@ -1,6 +1,8 @@
 package br.com.alura.school.course;
 
+import br.com.alura.school.enroll.Enroll;
 import br.com.alura.school.section.Section;
+import br.com.alura.school.user.User;
 import br.com.alura.school.video.Video;
 
 import javax.persistence.*;
@@ -8,7 +10,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -34,6 +38,10 @@ public class Course {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
     private List<Section> sections = new ArrayList<>();
 
+    @OneToMany(mappedBy = "id.course")
+    private Set<Enroll> enrolls = new HashSet<>();
+
+
     @Deprecated
     protected Course() { }
 
@@ -41,6 +49,22 @@ public class Course {
         this.code = code;
         this.name = name;
         this.description = description;
+    }
+
+    public List<User> getUsers() {
+        List<User> list = new ArrayList<>();
+        for (Enroll x : enrolls) {
+            list.add(x.getUser());
+        }
+        return list;
+    }
+
+    public List<Section> getSections() {
+        return sections;
+    }
+
+    public Set<Enroll> getEnrolls() {
+        return enrolls;
     }
 
     String getCode() {
