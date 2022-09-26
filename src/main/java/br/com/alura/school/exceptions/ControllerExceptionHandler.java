@@ -22,7 +22,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> objectNotFound(MethodArgumentNotValidException e, HttpServletRequest request) {
 
-        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "O valor do campo não pode ser vazio", System.currentTimeMillis());
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "O valor dos campos é inválido", System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
@@ -31,5 +31,11 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> duplicateEnrollment(DuplicateEnrollmentException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(NoContentException.class)
+    public ResponseEntity<StandardError> noEnrollmentsFound(NoContentException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.NO_CONTENT.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(err);
     }
 }

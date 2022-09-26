@@ -3,6 +3,7 @@ package br.com.alura.school.section;
 import br.com.alura.school.course.Course;
 import br.com.alura.school.course.CourseService;
 import br.com.alura.school.enroll.EnrollService;
+import br.com.alura.school.exceptions.NoContentException;
 import br.com.alura.school.exceptions.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -45,13 +46,26 @@ public class SectionService {
 
     public List<Section> findSectionsFromEnrolledCourses() {
         List<Course> allEnrolledCourses = enrollService.findAllEnrolledCourses();
-        List<List<Section>> superList = allEnrolledCourses.stream()
-                                                          .map(x -> x.getSections())
-                                                          .collect(Collectors.toList());
+        List<List<Section>> superList =
+                allEnrolledCourses
+                        .stream()
+                        .map(x -> x.getSections())
+                        .collect(Collectors.toList());
 
         List<Section> sections = new ArrayList<>();
-        superList.stream()
-                 .forEach( x -> sections.addAll(x));
+        superList
+                .stream()
+                .forEach(x -> sections.addAll(x));
+
+        verifyNumberOfEnrollments(sections);
+
         return sections;
     }
+
+    private void verifyNumberOfEnrollments(List<Section> sections) {
+        if (sections.size() <= 0) {
+            throw new NoContentException("Nenhum curso com matrícula encontrado");
+        }
+    }
+
 }
