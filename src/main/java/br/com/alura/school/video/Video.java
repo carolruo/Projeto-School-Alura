@@ -49,11 +49,11 @@ public class Video {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Video video1 = (Video) o;
-        return Objects.equals(video, video1.video) && Objects.equals(section, video1.section);
+        return Objects.equals(video, video1.video);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(video, section);
+        return Objects.hash(video);
     }
 }

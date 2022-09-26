@@ -38,4 +38,10 @@ public class ControllerExceptionHandler {
         StandardError err = new StandardError(HttpStatus.NO_CONTENT.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(err);
     }
+
+    @ExceptionHandler(DuplicateObjectException.class)
+    public ResponseEntity<StandardError> duplicateObjectException(DuplicateObjectException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
 }

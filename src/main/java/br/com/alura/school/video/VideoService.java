@@ -2,6 +2,7 @@ package br.com.alura.school.video;
 
 import br.com.alura.school.course.Course;
 import br.com.alura.school.course.CourseService;
+import br.com.alura.school.exceptions.DuplicateObjectException;
 import br.com.alura.school.exceptions.ObjectNotFoundException;
 import br.com.alura.school.section.Section;
 import br.com.alura.school.section.SectionService;
@@ -36,7 +37,7 @@ public class VideoService {
     private void isDuplicated(Video video, Section section) {
         boolean isDuplicatedVideo = section.getVideos().stream().anyMatch(video1 -> video1.equals(video));
         if (isDuplicatedVideo) {
-            throw new ObjectNotFoundException("objeto duplicado");
+            throw new DuplicateObjectException("Vídeo duplicado");
         }
     }
 }
