@@ -36,14 +36,6 @@ public class Section {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "section")
     private List<Video> videos = new ArrayList<>();
 
-    public List<Video> getVideos() {
-        return videos;
-    }
-
-    public void setVideos(List<Video> videos) {
-        this.videos = videos;
-    }
-
     @Deprecated
     protected Section() {
     }
@@ -68,6 +60,14 @@ public class Section {
 
     public Course getCourse() {
         return course;
+    }
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
     }
 
     public void setCourse(Course course) {

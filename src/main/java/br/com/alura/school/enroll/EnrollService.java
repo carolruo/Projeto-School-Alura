@@ -7,6 +7,7 @@ import br.com.alura.school.user.User;
 import br.com.alura.school.user.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -42,4 +43,9 @@ public class EnrollService {
             throw new DuplicateEnrollmentException("Aluno já matriculado");
         }
     }
+
+    public List<Course> findAllEnrolledCourses() {
+        return enrollRepository.findDistinctByCourse_id();
+    }
+
 }

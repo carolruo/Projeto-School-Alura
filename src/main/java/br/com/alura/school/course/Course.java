@@ -68,15 +68,15 @@ public class Course {
         this.enrolls.add(enroll);
     }
 
-    String getCode() {
+    public String getCode() {
         return code;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 

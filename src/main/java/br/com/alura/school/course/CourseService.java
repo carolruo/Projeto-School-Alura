@@ -1,5 +1,6 @@
 package br.com.alura.school.course;
 
+import br.com.alura.school.enroll.EnrollService;
 import br.com.alura.school.exceptions.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +32,10 @@ public class CourseService {
     public void save(Course course) {
         courseRepository.save(course);
     }
+
+    public List<Course> findAllEnrolledCourses() {
+        List<Course> coursesEnr = courseRepository.findDistinctByEnrolls();
+        return coursesEnr;
+    }
+
 }
