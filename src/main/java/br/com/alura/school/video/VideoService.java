@@ -26,7 +26,7 @@ public class VideoService {
 
     public void save(Video video, String courseCode, String sectionCode) {
         Course course = courseService.findByCode(courseCode);
-        Section section = sectionService.findByCode(sectionCode);
+        Section section = sectionService.findByCodeAndCourse(sectionCode, course);
 
         isDuplicated(video, section);
         video.setSection(section);

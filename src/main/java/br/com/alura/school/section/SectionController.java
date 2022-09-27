@@ -29,8 +29,8 @@ public class SectionController {
     @GetMapping("/sectionByVideosReport")
     ResponseEntity<List<SectionResponse>> sectionByVideosReport() {
         List<Section> sections = sectionService.findSectionsFromEnrolledCourses();
-        List<SectionResponse> sectionResponses = sections.stream().map(obj -> new SectionResponse(obj)).collect(Collectors.toList());
-        sectionResponses.sort((s1, s2) -> s1.compareTo(s2));
+        List<SectionResponse> sectionResponses = sections.stream().map(SectionResponse::new).collect(Collectors.toList());
+        sectionResponses.sort(SectionResponse::compareTo);
         return ResponseEntity.ok().body(sectionResponses);
     }
 

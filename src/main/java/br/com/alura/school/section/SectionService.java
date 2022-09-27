@@ -3,6 +3,7 @@ package br.com.alura.school.section;
 import br.com.alura.school.course.Course;
 import br.com.alura.school.course.CourseService;
 import br.com.alura.school.enroll.EnrollService;
+import br.com.alura.school.exceptions.DuplicateObjectException;
 import br.com.alura.school.exceptions.NoContentException;
 import br.com.alura.school.exceptions.ObjectNotFoundException;
 import br.com.alura.school.user.UserService;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class SectionService {
@@ -34,15 +34,25 @@ public class SectionService {
         Course course = courseService.findByCode(code);
         userService.isUserInstructor(section.getAuthorUsername());
 
+        verifySectionDuplication(section, course);
+
         section.setCourse(course);
         course.addSection(section);
         sectionRepository.save(section);
     }
 
-    public Section findByCode(String sectionCode) {
-        Optional<Section> course = sectionRepository.findByCode(sectionCode);
-        return course.orElseThrow(() -> new ObjectNotFoundException(
-                "Aula/Section não encontrada! Code: " + sectionCode + ", Tipo: " + Section.class.getName()
+    private void verifySectionDuplication(Section section, Course course) {
+        List<Section> sections = course.getSections();
+
+        if (sections.stream().anyMatch(s -> s.getCode().equals(section.getCode()))) {
+            throw new DuplicateObjectException("A aula já existe dentro do curso. Código: " + section.getCode());
+        }
+    }
+
+    public Section findByCodeAndCourse(String sectionCode, Course course) {
+        Optional<Section> section = sectionRepository.findByCodeAndCourse(sectionCode, course);
+        return section.orElseThrow(() -> new ObjectNotFoundException(
+                "Aula não encontrada! Code: " + sectionCode + ", Tipo: " + Section.class.getName()
         ));
     }
 
@@ -55,13 +65,10 @@ public class SectionService {
         List<List<Section>> superList =
                 allEnrolledCourses
                         .stream()
-                        .map(x -> x.getSections())
-                        .collect(Collectors.toList());
+                        .map(Course::getSections).toList();
 
         List<Section> sections = new ArrayList<>();
-        superList
-                .stream()
-                .forEach(x -> sections.addAll(x));
+        superList.forEach(sections::addAll);
 
         verifyNumberOfEnrollments(sections);
 
@@ -69,7 +76,7 @@ public class SectionService {
     }
 
     private void verifyNumberOfEnrollments(List<Section> sections) {
-        if (sections.size() <= 0) {
+        if (sections.isEmpty()) {
             throw new NoContentException("Nenhum curso com matrícula encontrado");
         }
     }

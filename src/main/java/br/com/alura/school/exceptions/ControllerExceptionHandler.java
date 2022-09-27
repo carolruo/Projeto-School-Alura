@@ -22,7 +22,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> methodArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest request) {
 
-        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "O valor dos campos é inválido", System.currentTimeMillis());
+        StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "O campo não é válido.", System.currentTimeMillis());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
