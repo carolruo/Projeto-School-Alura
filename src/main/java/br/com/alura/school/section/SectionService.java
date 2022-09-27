@@ -5,6 +5,7 @@ import br.com.alura.school.course.CourseService;
 import br.com.alura.school.enroll.EnrollService;
 import br.com.alura.school.exceptions.NoContentException;
 import br.com.alura.school.exceptions.ObjectNotFoundException;
+import br.com.alura.school.user.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,23 +21,28 @@ public class SectionService {
 
     private final EnrollService enrollService;
 
-    public SectionService(SectionRepository sectionRepository, CourseService courseService, EnrollService enrollService) {
+    private final UserService userService;
+
+    public SectionService(SectionRepository sectionRepository, CourseService courseService, EnrollService enrollService, UserService userService) {
         this.sectionRepository = sectionRepository;
         this.courseService = courseService;
         this.enrollService = enrollService;
+        this.userService = userService;
     }
 
     public void save(Section section, String code) {
         Course course = courseService.findByCode(code);
+        userService.isUserInstructor(section.getAuthorUsername());
+
         section.setCourse(course);
-        sectionRepository.save(section);
         course.addSection(section);
+        sectionRepository.save(section);
     }
 
     public Section findByCode(String sectionCode) {
         Optional<Section> course = sectionRepository.findByCode(sectionCode);
         return course.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! Code: " + sectionCode + ", Tipo: " + Section.class.getName()
+                "Aula/Section não encontrada! Code: " + sectionCode + ", Tipo: " + Section.class.getName()
         ));
     }
 

@@ -20,7 +20,7 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<StandardError> objectNotFound(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> methodArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest request) {
 
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), "O valor dos campos é inválido", System.currentTimeMillis());
 
@@ -43,5 +43,11 @@ public class ControllerExceptionHandler {
     public ResponseEntity<StandardError> duplicateObjectException(DuplicateObjectException e, HttpServletRequest request) {
         StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(UnauthorizedRoleAccessException.class)
+    public ResponseEntity<StandardError> unauthorizedRoleAccessException(UnauthorizedRoleAccessException e, HttpServletRequest request) {
+        StandardError err = new StandardError(HttpStatus.UNAUTHORIZED.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
     }
 }

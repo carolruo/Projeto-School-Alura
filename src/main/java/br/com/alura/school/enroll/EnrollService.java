@@ -3,6 +3,7 @@ package br.com.alura.school.enroll;
 import br.com.alura.school.course.Course;
 import br.com.alura.school.course.CourseService;
 import br.com.alura.school.exceptions.DuplicateEnrollmentException;
+import br.com.alura.school.exceptions.DuplicateObjectException;
 import br.com.alura.school.user.User;
 import br.com.alura.school.user.UserService;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,7 @@ public class EnrollService {
     private void verifyEnrollDuplicity(Set<Enroll> enrolls, Enroll enroll) {
         boolean contains = enrolls.contains(enroll);
         if (contains) {
-            throw new DuplicateEnrollmentException("Aluno já matriculado");
+            throw new DuplicateObjectException("O Aluno já está matriculado. Aluno: " + enroll.getUser());
         }
     }
 

@@ -62,6 +62,18 @@ class User {
         return email;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
