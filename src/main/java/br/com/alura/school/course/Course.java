@@ -35,7 +35,7 @@ public class Course {
     private List<Section> sections = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.course")
-    private Set<Enroll> enrolls = new HashSet<>();
+    private List<Enroll> enrolls = new ArrayList<>();
 
     @Deprecated
     protected Course() { }
@@ -58,7 +58,7 @@ public class Course {
         return sections;
     }
 
-    public Set<Enroll> getEnrolls() {
+    public List<Enroll> getEnrolls() {
         return enrolls;
     }
 
