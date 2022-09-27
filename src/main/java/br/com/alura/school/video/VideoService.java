@@ -17,7 +17,6 @@ public class VideoService {
 
     private final SectionService sectionService;
 
-
     public VideoService(VideoRepository videoRepository, CourseService courseService, SectionService sectionService) {
         this.videoRepository = videoRepository;
         this.courseService = courseService;

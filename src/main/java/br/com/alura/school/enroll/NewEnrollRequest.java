@@ -1,6 +1,5 @@
 package br.com.alura.school.enroll;
 
-import br.com.alura.school.user.User;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -19,11 +18,6 @@ public class NewEnrollRequest {
     public String getUsername() {
         return username;
     }
-
-//    User toEntity() {
-//        return new Enroll(username);
-//    }
-
 
     @Override
     public String toString() {

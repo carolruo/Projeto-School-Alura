@@ -1,7 +1,6 @@
 package br.com.alura.school.section;
 
 import br.com.alura.school.course.Course;
-import br.com.alura.school.support.validation.Unique;
 import br.com.alura.school.video.Video;
 
 import javax.persistence.*;

@@ -27,14 +27,6 @@ class NewSectionRequest {
         return code;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthorUsername() {
-        return authorUsername;
-    }
-
     Section toEntity() {
         return new Section(code, title, authorUsername);
     }

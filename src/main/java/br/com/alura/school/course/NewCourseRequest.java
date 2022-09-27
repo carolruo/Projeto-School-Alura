@@ -36,10 +36,6 @@ class NewCourseRequest {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     Course toEntity() {
         return new Course(code, name, description);
     }

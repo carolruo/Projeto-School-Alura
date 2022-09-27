@@ -23,7 +23,7 @@ class CourseController {
     @GetMapping("/courses")
     ResponseEntity<List<CourseResponse>> allCourses() {
         List<Course> courses = courseService.findAll();
-        List<CourseResponse> courseResponses = courses.stream().map(obj -> new CourseResponse(obj)).collect(Collectors.toList());
+        List<CourseResponse> courseResponses = courses.stream().map(CourseResponse::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(courseResponses);
     }
 

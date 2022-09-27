@@ -1,6 +1,5 @@
 package br.com.alura.school.user;
 
-import br.com.alura.school.course.Course;
 import br.com.alura.school.exceptions.ObjectNotFoundException;
 import br.com.alura.school.exceptions.UnauthorizedRoleAccessException;
 import org.springframework.stereotype.Service;

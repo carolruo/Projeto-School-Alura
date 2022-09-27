@@ -33,5 +33,4 @@ public class SectionController {
         sectionResponses.sort(SectionResponse::compareTo);
         return ResponseEntity.ok().body(sectionResponses);
     }
-
 }

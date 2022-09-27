@@ -9,5 +9,4 @@ public class UnauthorizedRoleAccessException extends RuntimeException {
     public UnauthorizedRoleAccessException(String msg, Throwable cause) {
         super(msg, cause);
     }
-
 }

@@ -20,5 +20,4 @@ public class VideoResponse {
         if (description.length() <= 13) return description;
         return description.substring(0, 10) + "...";
     }
-
 }

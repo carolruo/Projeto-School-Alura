@@ -80,5 +80,4 @@ public class SectionService {
             throw new NoContentException("Nenhum curso com matrícula encontrado");
         }
     }
-
 }

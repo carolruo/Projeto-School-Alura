@@ -43,6 +43,4 @@ public class Enroll {
     public LocalDate getData() {
         return data;
     }
-
-
 }

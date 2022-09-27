@@ -43,5 +43,4 @@ public class SectionResponse {
         int compareQuantity = section.getTotalVideos();
         return compareQuantity - this.totalVideos;
     }
-
 }

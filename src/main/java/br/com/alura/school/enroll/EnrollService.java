@@ -50,5 +50,4 @@ public class EnrollService {
     public List<Course> findAllEnrolledCourses() {
         return enrollRepository.findDistinctByCourse_id();
     }
-
 }

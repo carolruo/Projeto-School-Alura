@@ -16,10 +16,6 @@ public class NewVideoRequest {
         this.video = video;
     }
 
-    public String getVideo() {
-        return video;
-    }
-
     Video toEntity() {
         return new Video(video);
     }
