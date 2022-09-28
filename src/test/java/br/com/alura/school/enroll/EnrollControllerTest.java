@@ -27,8 +27,12 @@ public class EnrollControllerTest {
 
     @Autowired
     CourseRepository courseRepository;
+
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    EnrollRepository enrollRepository;
 
     @AfterEach
     void wipe() {
@@ -57,6 +61,20 @@ public class EnrollControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonMapper.writeValueAsString(enrollRequest)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    void bad_request_when_duplicate_enroll() throws Exception {
+        Course entity = new Course("java-4", "Java Spring", "Curso de Java");
+        courseRepository.save(entity);
+        User alexa = new User("alexa", "alexa@gmail.com");
+        userRepository.save(alexa);
+        enrollRepository.save(new Enroll(alexa, entity));
+
+        mockMvc.perform(post("/courses/java-1/enroll")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.writeValueAsString(alexa)))
+                .andExpect(status().isBadRequest());
     }
 
 }
