@@ -5,6 +5,7 @@ import br.com.alura.school.course.CourseRepository;
 import br.com.alura.school.enroll.*;
 import br.com.alura.school.user.User;
 import br.com.alura.school.user.UserRepository;
+import br.com.alura.school.user.UserRole;
 import br.com.alura.school.video.Video;
 import br.com.alura.school.video.VideoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +20,7 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -49,8 +51,7 @@ public class SectionControllerTest {
 
     @Test
     void should_send_no_content_exception_when_no_enrollments() throws Exception {
-        mockMvc.perform(get("/sectionByVideosReport")
-                        .accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/sectionByVideosReport").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 
@@ -85,19 +86,33 @@ public class SectionControllerTest {
         enrollService.save("carol", "spring-4");
         videoService.save(video3, "spring-4", "spring-security");
 
-        mockMvc.perform(get("/sectionByVideosReport")
-                        .accept(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isOk())
-                        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(jsonPath("$.length()", is(2)))
-                        .andExpect(jsonPath("$[0].courseName", is("Spring Basico")))
-                        .andExpect(jsonPath("$[0].sectionTitle", is("Initialize")))
-                        .andExpect(jsonPath("$[0].authorName", is("Alexa")))
-                        .andExpect(jsonPath("$[0].totalVideos", is(2)))
-                        .andExpect(jsonPath("$[1].courseName", is("Spring B")))
-                        .andExpect(jsonPath("$[1].sectionTitle", is("JWT Basic")))
-                        .andExpect(jsonPath("$[1].authorName", is("Ale")))
-                        .andExpect(jsonPath("$[1].totalVideos", is(1)));
+        mockMvc.perform(get("/sectionByVideosReport").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.length()", is(2)))
+                .andExpect(jsonPath("$[0].courseName", is("Spring Basico")))
+                .andExpect(jsonPath("$[0].sectionTitle", is("Initialize")))
+                .andExpect(jsonPath("$[0].authorName", is("Alexa")))
+                .andExpect(jsonPath("$[0].totalVideos", is(2)))
+                .andExpect(jsonPath("$[1].courseName", is("Spring B")))
+                .andExpect(jsonPath("$[1].sectionTitle", is("JWT Basic")))
+                .andExpect(jsonPath("$[1].authorName", is("Ale")))
+                .andExpect(jsonPath("$[1].totalVideos", is(1)));
     }
 
+    @Test
+    void should_add_new_section() throws Exception {
+        courseRepository.save(new Course("java-1", "Java OO", "Encapsulation, Polymorphism."));
+        User alexa = new User("alexa", "alexa@gmail.com");
+        alexa.setRole(UserRole.INSTRUCTOR);
+        userRepository.save(alexa);
+
+        NewSectionRequest newSectionRequest = new NewSectionRequest("java-total", "Titulo", "alexa");
+
+        mockMvc.perform(post("/courses/java-1/sections")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.writeValueAsString(newSectionRequest)))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", "/courses/java-total"));
+    }
 }
