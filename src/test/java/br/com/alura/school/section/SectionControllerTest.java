@@ -46,6 +46,7 @@ public class SectionControllerTest {
 
     @AfterEach
     void wipe() {
+        userRepository.deleteAll();
         courseRepository.deleteAll();
     }
 
@@ -106,7 +107,6 @@ public class SectionControllerTest {
         User alexa = new User("alexa", "alexa@gmail.com");
         alexa.setRole(UserRole.INSTRUCTOR);
         userRepository.save(alexa);
-
         NewSectionRequest newSectionRequest = new NewSectionRequest("java-total", "Titulo", "alexa");
 
         mockMvc.perform(post("/courses/java-1/sections")
@@ -115,4 +115,18 @@ public class SectionControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/courses/java-total"));
     }
+
+    @Test
+    void unauthorized_when_user_not_instructor() throws Exception {
+        courseRepository.save(new Course("java-1", "Java OO", "Encapsulation, Polymorphism."));
+        User carolina = new User("carolina", "carolina@gmail.com");
+        userRepository.save(carolina);
+        NewSectionRequest newSectionRequest = new NewSectionRequest("java-total", "Titulo", "carolina");
+
+        mockMvc.perform(post("/courses/java-1/sections")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.writeValueAsString(newSectionRequest)))
+                .andExpect(status().isUnauthorized());
+    }
+
 }
