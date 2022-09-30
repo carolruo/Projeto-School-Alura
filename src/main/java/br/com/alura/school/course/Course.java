@@ -19,12 +19,12 @@ public class Course {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Size(max=10)
+    @Size(max = 10)
     @NotBlank
     @Column(nullable = false, unique = true)
     private String code;
 
-    @Size(max=20)
+    @Size(max = 20)
     @NotBlank
     @Column(nullable = false, unique = true)
     private String name;
@@ -38,7 +38,8 @@ public class Course {
     private List<Enroll> enrolls = new ArrayList<>();
 
     @Deprecated
-    protected Course() { }
+    protected Course() {
+    }
 
     public Course(String code, String name, String description) {
         this.code = code;

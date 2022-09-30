@@ -22,7 +22,7 @@ class User {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Size(max=20)
+    @Size(max = 20)
     @NotBlank
     @Column(nullable = false, unique = true)
     private String username;
@@ -39,7 +39,8 @@ class User {
     private Set<Enroll> enrolls = new HashSet<>();
 
     @Deprecated
-    protected User() {}
+    protected User() {
+    }
 
     public User(String username, String email) {
         this.username = username;

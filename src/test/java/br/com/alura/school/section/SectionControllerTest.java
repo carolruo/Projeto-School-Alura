@@ -110,8 +110,8 @@ public class SectionControllerTest {
         NewSectionRequest newSectionRequest = new NewSectionRequest("java-total", "Titulo", "alexa");
 
         mockMvc.perform(post("/courses/java-1/sections")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonMapper.writeValueAsString(newSectionRequest)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonMapper.writeValueAsString(newSectionRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/courses/java-total"));
     }
@@ -124,8 +124,8 @@ public class SectionControllerTest {
         NewSectionRequest newSectionRequest = new NewSectionRequest("java-total", "Titulo", "carolina");
 
         mockMvc.perform(post("/courses/java-1/sections")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonMapper.writeValueAsString(newSectionRequest)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonMapper.writeValueAsString(newSectionRequest)))
                 .andExpect(status().isUnauthorized());
     }
 

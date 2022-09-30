@@ -72,8 +72,8 @@ public class EnrollControllerTest {
         enrollRepository.save(new Enroll(alexa, entity));
 
         mockMvc.perform(post("/courses/java-1/enroll")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonMapper.writeValueAsString(alexa)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonMapper.writeValueAsString(alexa)))
                 .andExpect(status().isBadRequest());
     }
 
